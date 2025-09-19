@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Scroll</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for('static', filename='Background.png') }}');
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 420px;
+        }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; color: #333; }
+        select, input[type="date"], input[type="text"] {
+            width: 100%; padding: 10px; margin-bottom: 15px;
+            border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%; background-color: #4CAF50; color: white;
+            padding: 12px; border: none; border-radius: 6px; cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover { background-color: #45a049; }
+        .nav-links {
+            display: flex; justify-content: space-between;
+            margin-top: 20px; flex-wrap: wrap; gap: 10px;
+        }
+        a.nav-link {
+            background-color: #007BFF; color: white; padding: 10px 18px;
+            border-radius: 6px; text-decoration: none; font-weight: bold;
+            transition: background-color 0.3s; flex: 1; text-align: center;
+        }
+        a.nav-link:hover { background-color: #004aad; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Button -->
+        <div class="nav-links" style="margin-bottom: 20px; justify-content: center;">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">🏠 Dashboard Home</a>
+        </div>
+
+        <form method="POST">
+            <h2>Bank Scroll</h2>
+
+            <label>Bank:</label>
+            <select name="bank" required>
+                <option value="MP Treasury">MP Treasury</option>
+                <option value="Assam Treasury">Assam Treasury</option>
+                <option value="Meghalaya Treasury">Meghalaya Treasury</option>
+                <option value="Bihar Treasury">Bihar Treasury</option>
+            </select>
+
+            <label>From Date:</label>
+            <input type="date" name="from_date" required>
+
+            <label>To Date:</label>
+            <input type="date" name="to_date" required>
+
+            <label>Client Code:</label>
+            <select name="client_code" required>
+                <option value="MPST98">MPST98</option>
+                <option value="ASSAM_EGRAS">ASSAM_EGRAS</option>
+                <option value="MLCNRPG">MLCNRPG</option>
+                <option value="OGRAS">OGRAS</option>
+            </select>
+
+            <input type="submit" value="Download XML">
+        </form>
+
+        <div class="nav-links">
+            <a href="/department" class="nav-link">← Back to Department</a>
+            <a href="/txn_enquiry" class="nav-link">Next to Transaction Enquiry →</a>
+        </div>
+    </div>
+</body>
+</html>

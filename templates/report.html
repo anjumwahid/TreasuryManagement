@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refund Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+              background-image: url('{{ url_for('static', filename='Background.png') }}');
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 420px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        a.nav-link {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        a.nav-link:hover {
+            background-color: #004aad;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dashboard Home Button -->
+        <div class="nav-links" style="margin-bottom: 20px; justify-content: center;">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">🏠 Dashboard Home</a>
+        </div>
+        <form method="POST">
+            <h2>Refund Report</h2>
+
+            <label>From Date:</label>
+            <input type="date" name="from_date" required>
+
+            <label>To Date:</label>
+            <input type="date" name="to_date" required>
+
+            <label>Client Code:</label>
+            <select name="client_code" required>
+                <option value="">MPST98</option>
+                <option value="">284617129</option>
+                  <option value="">MLCNRPG</option>
+                  <option value="">OGRAS</option>
+            </select>
+
+            <input type="submit" value="View">
+        </form>
+
+        <div class="nav-links">
+            <a href="/txn_history" class="nav-link">← Back to Transaction History</a>
+            <a href="/refund_report" class="nav-link">Next to Refund Report →</a>
+        </div>
+    </div>
+</body>
+</html>

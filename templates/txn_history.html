@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for('static', filename='Background.png') }}');
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 30px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 95%;
+            max-width: 1200px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        a.nav-link {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        a.nav-link:hover {
+            background-color: #004aad;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dashboard Home Button -->
+        <div class="nav-links" style="margin-bottom: 20px; justify-content: center;">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">🏠 Dashboard Home</a>
+        </div>
+
+        <form method="POST">
+            <h2>Transaction History</h2>
+
+            <label>From Date:</label>
+            <input type="date" name="from_date" required>
+
+            <label>To Date:</label>
+            <input type="date" name="to_date" required>
+
+            <label>Client Code:</label>
+            <select name="client_code" required>
+                <option value="MPST98">MPST98</option>
+                <option value="ASSAM_EGRAS">ASSAM_EGRAS</option>
+                <option value="MLCNRPG">MLCNRPG</option>
+                <option value="FDBIHAR_GOVT">FDBIHAR_GOVT</option>
+            </select>
+
+            <input type="submit" value="View">
+        </form>
+
+        <!-- ✅ Display results in a table -->
+        {% if result %}
+        <h2>Results</h2>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th>SabPaisa Txn ID</th>
+                    <th>Client Txn ID</th>
+                    <th>GRN</th>
+                    <th>Txn Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Payment Mode</th>
+                    <th>Txn Date</th>
+                </tr>
+                {% for row in result %}
+                <tr>
+                    <td>{{ row.sabpaisa_txn_id or '-' }}</td>
+                    <td>{{ row.treasury_txn_id or '-' }}</td>
+                    <td>{{ row.merchant_reference_number or '-' }}</td>
+                    <td>{{ row.treasury_account_type or '-' }}</td>
+                    <td>{{ row.total_amount or '0.0' }}</td>
+                    <td>{{ row.payment_status or '-' }}</td>
+                    <td>{{ row.payment_mode or '-' }}</td>
+                    <td>{{ row.trans_complete_date or '-' }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+        <div class="nav-links">
+            <a href="/grn_enquiry" class="nav-link">← Back to GRN Enquiry</a>
+            <a href="/report" class="nav-link">Next to Report →</a>
+        </div>
+    </div>
+</body>
+</html>
